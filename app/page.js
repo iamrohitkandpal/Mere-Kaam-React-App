@@ -8,12 +8,20 @@ const page = () => {
   const [mainTask, setMainTask] = useState([""])
   const submitHandler = (e)=>{
     e.preventDefault();
-    console.log(name);
-    console.log(details);
+    setMainTask([...mainTask, {name, details}]);
+
     setName("");
     setDetails("");
+    console.log(mainTask);
   }
   
+  let renderTask = <h2>No Task Available</h2>
+  renderTask = mainTask.map((task, i)=>{
+    return <div className='content-center rounded-md w-72 py-3 px-6 mx-2 '>
+      <h5 className='font-semibold'>{task.name}</h5>
+      <h6>{task.details}</h6>
+    </div>
+  })
   return (
     <>
       <h1 className='mt-2 rounded-lg mx-5 bg-[#421fff] text-center text-white font-bold text-3xl py-5'>Mere Kaam React App</h1>
@@ -32,7 +40,9 @@ const page = () => {
         <button className='bg-[#421fff] text-white px-7 py-3 border-2 rounded-full border-[#5845ff]'>Create Task</button>
       </form>
       <hr />
-      <div className=''></div>
+      <div className='mx-5 my-10 rounded-lg bg-slate-200'>
+        <ul className='flex flex-row flex-wrap gap-5'>{renderTask}</ul>
+      </div>
     </>
   )
 }
